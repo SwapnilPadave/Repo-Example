@@ -39,6 +39,9 @@ namespace REPO_API
             services.AddDbContext<Context>(options => options.UseSqlServer(Configuration.GetConnectionString("conn")));
             services.AddScoped<IProductService, ProductService>().AddScoped<IProductRepository, ProductRepository>().
                 AddScoped<ICategoryService, CategoryService>().AddScoped<ICategoryRepository, CatrgoryRepository>();
+            services.AddControllersWithViews().AddNewtonsoftJson(options =>
+                      options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+);
 
 
         }
