@@ -31,7 +31,7 @@ namespace REPO_API.Controllers
 
        
         [HttpPost]
-        [Produces(typeof(Category))]
+       
         public IActionResult AddCategory(CategoryAddDTO addDTO)
         {
             return Ok(_categoryService.AddCategory(addDTO));

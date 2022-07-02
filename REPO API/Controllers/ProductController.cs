@@ -30,7 +30,7 @@ namespace REPO_API.Controllers
 
         
         [HttpPost]
-        [Produces(typeof(Product))]
+        
         public IActionResult AddProduct(ProductAddDTO addDTO)
         {
             return Ok(_productService.AddProduct(addDTO));
