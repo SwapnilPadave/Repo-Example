@@ -9,6 +9,8 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using REPO_Repository;
+using REPO_Repository.Repositories;
+using REPO_Service;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -35,6 +37,9 @@ namespace REPO_API
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "REPO_API", Version = "v1" });
             });
             services.AddDbContext<Context>(options => options.UseSqlServer(Configuration.GetConnectionString("conn")));
+            services.AddScoped<IProductService, ProductService>().AddScoped<IProductRepository, ProductRepository>().
+                AddScoped<ICategoryService, CategoryService>().AddScoped<ICategoryRepository, CatrgoryRepository>();
+
 
         }
 
