@@ -28,29 +28,23 @@ namespace REPO_API.Controllers
             IEnumerable<Category> category = await _categoryService.GetAllCategory();
             return Ok(category);
         }
-
-       
+        
         [HttpPost]
-       
-        public IActionResult AddCategory(CategoryAddDTO addDTO)
+        public async Task<IActionResult> AddCategory(CategoryAddDTO addDTO)
         {
-            return Ok(_categoryService.AddCategory(addDTO));
+            return Ok(await _categoryService.AddCategory(addDTO));
         }
-
        
         [HttpPut]
-        [Route("{id}")]
-        
+        [Route("{id}")]        
         public async Task<IActionResult> UpdateCategory(CategoryUpdateDTO updateDTO)
         {
             return Ok(await _categoryService.UpdateCategory(updateDTO));
         }
-
        
         [HttpDelete]
-        [Route("{id}")]
-        [Produces(typeof(bool))]
-        public async Task<bool> DeleteCategory(int id)
+        [Route("{id}")]        
+        public async Task<Category> DeleteCategory(int id)
         {
             return await _categoryService.DeleteCategory(id);
         }

@@ -31,9 +31,9 @@ namespace REPO_API.Controllers
         
         [HttpPost]
         
-        public IActionResult AddProduct(ProductAddDTO addDTO)
+        public async Task<IActionResult> AddProduct(ProductAddDTO addDTO)
         {
-            return Ok(_productService.AddProduct(addDTO));
+            return Ok( await _productService.AddProduct(addDTO));
         }
 
         
@@ -47,8 +47,8 @@ namespace REPO_API.Controllers
         
         [HttpDelete]
         [Route("{id}")]
-        [Produces(typeof(bool))]
-        public async Task<bool> DeleteProduct(int id)
+        
+        public async Task<Product> DeleteProduct(int id)
         {
             return await _productService.DeleteProduct(id);
         }
