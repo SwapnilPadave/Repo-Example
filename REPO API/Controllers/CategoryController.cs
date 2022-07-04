@@ -29,14 +29,15 @@ namespace REPO_API.Controllers
             IEnumerable<Category> category = await _categoryService.GetAllCategory();
             return Ok(category);
         }
-        
-        [HttpPost]
+
         [Authorize(Policy = "Admin")]
-        public async Task<IActionResult> AddCategory(CategoryAddDTO addDTO)
+        [HttpPost]
+        [Produces(typeof(Category))]
+        public async Task<IActionResult> AddCategoryAsync(CategoryAddDTO1 addDTO)
         {
             return Ok(await _categoryService.AddCategory(addDTO));
         }
-       
+
         [HttpPut]
         [Route("{id}")]
         [Authorize(Policy = "Admin")]

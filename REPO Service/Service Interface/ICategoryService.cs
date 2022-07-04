@@ -14,7 +14,7 @@ namespace REPO_Service
 
         Task<IEnumerable<Category>> GetAllCategory();
         Task<Category> GetCategoryById(int id);
-        Task<Category> AddCategory(CategoryAddDTO addDTO);
+        Task<Category> AddCategory(CategoryAddDTO1 addDTO);
         Task<Category> UpdateCategory(CategoryUpdateDTO updateDTO);
         Task<Category> DeleteCategory(int id);
 

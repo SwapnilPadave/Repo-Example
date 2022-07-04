@@ -17,7 +17,7 @@ namespace REPO_Service
             _categoryRepository = categoryRepository;
         }
 
-        public async Task<Category> AddCategory(CategoryAddDTO addDTO)
+        public async Task<Category> AddCategory(CategoryAddDTO1 addDTO)
         {
 
             try
