@@ -1,25 +1,18 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using REPO_Repository;
 using REPO_Repository.Repositories;
 using REPO_Service;
-//using REPO_Service.Service_Interface;
-//using REPO_Service.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+using REPO_Service.Service_Interface;
+using REPO_Service.Services;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace REPO_API
 {
@@ -66,16 +59,16 @@ namespace REPO_API
                 });
             });
             services.AddDbContext<Context>(options => options.UseSqlServer(Configuration.GetConnectionString("conn")));
-            services/*.AddScoped<IUserService, UserService>()*/.AddScoped<IUserRepository, UserRepository>().
+            services.AddScoped<IUserService, UserService>().AddScoped<IUserRepository, UserRepository>().
                 AddScoped<IProductService, ProductService>().AddScoped<IProductRepository, ProductRepository>().
                 AddScoped<ICategoryService, CategoryService>().AddScoped<ICategoryRepository, CatrgoryRepository>().
-               /* AddScoped<ITokenService, TokenService>().*//*AddScoped<IAccountService, AccountService>().*/AddScoped<IAccountRepository, AccountRepository>();
+                AddScoped<ITokenService, TokenService>().AddScoped<IAccountService, AccountService>().AddScoped<IAccountRepository, AccountRepository>();
             services.AddControllersWithViews().AddNewtonsoftJson(options =>
                       options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
             );
             services.AddAuthorization(options =>
             {
-                options.AddPolicy("Admin", policy => policy.RequireRole("ADMIN"));
+                options.AddPolicy("Admin", policy => policy.RequireRole("Admin"));
                 options.AddPolicy("ALL", policy => policy.RequireRole("User", "Admin"));
 
             });
@@ -100,11 +93,8 @@ namespace REPO_API
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["JWT:TokenKey"]))
                 };
             });
-
-
         }
-
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+       
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())

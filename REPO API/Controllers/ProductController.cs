@@ -1,11 +1,9 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using REPO_DTO;
 using REPO_MODEL;
 using REPO_Service;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace REPO_API.Controllers
@@ -30,7 +28,8 @@ namespace REPO_API.Controllers
 
         
         [HttpPost]
-        
+        [Authorize(Policy = "Admin")]
+
         public async Task<IActionResult> AddProduct(ProductAddDTO addDTO)
         {
             return Ok( await _productService.AddProduct(addDTO));
@@ -39,7 +38,7 @@ namespace REPO_API.Controllers
         
         [HttpPut]
         [Route("{id}")]
-        
+        [Authorize(Policy = "Admin")]
         public async Task<IActionResult> UpdateProduct(ProductUpdateDTO productDTO)
         {
             return Ok(await _productService.UpdateProduct(productDTO));
@@ -47,7 +46,7 @@ namespace REPO_API.Controllers
         
         [HttpDelete]
         [Route("{id}")]
-        
+        [Authorize(Policy = "Admin")]
         public async Task<Product> DeleteProduct(int id)
         {
             return await _productService.DeleteProduct(id);

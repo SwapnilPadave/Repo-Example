@@ -1,8 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace REPO_Repository.Infrastructure
@@ -23,11 +20,11 @@ namespace REPO_Repository.Infrastructure
         {
             return await _context.Set<T>().FindAsync(id);
         }
-        public async Task<bool> Add(T entity)
+        public async Task<T> Add(T entity)
         {
             await _context.AddAsync(entity);
             await _context.SaveChangesAsync();
-            return true;
+            return entity;
         }        
 
         public async Task Update(T entity)

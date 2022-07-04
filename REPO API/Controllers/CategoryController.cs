@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using REPO_DTO;
 using REPO_MODEL;
@@ -30,20 +31,23 @@ namespace REPO_API.Controllers
         }
         
         [HttpPost]
+        [Authorize(Policy = "Admin")]
         public async Task<IActionResult> AddCategory(CategoryAddDTO addDTO)
         {
             return Ok(await _categoryService.AddCategory(addDTO));
         }
        
         [HttpPut]
-        [Route("{id}")]        
+        [Route("{id}")]
+        [Authorize(Policy = "Admin")]
         public async Task<IActionResult> UpdateCategory(CategoryUpdateDTO updateDTO)
         {
             return Ok(await _categoryService.UpdateCategory(updateDTO));
         }
        
         [HttpDelete]
-        [Route("{id}")]        
+        [Route("{id}")]
+        [Authorize(Policy = "Admin")]
         public async Task<Category> DeleteCategory(int id)
         {
             return await _categoryService.DeleteCategory(id);
